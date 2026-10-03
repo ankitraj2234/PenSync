@@ -15,19 +15,28 @@ PenSync allows you to seamlessly use your Android tablet as a high-performance g
 - **True Driverless Mode:** Runs seamlessly in user-space without the need to install buggy virtual drivers.
 - **Pure Trackpad Mode:** Deselect Left/Middle/Right tools on your tablet to enable full multi-finger pinch-to-zoom and panning directly from the tablet glass!
 
-## 🚀 How to Install
-1. **Windows Installation:**
-   - Double-click `PenSync_Setup.exe` located in this folder.
-   - Follow the wizard to install PenSync to your PC.
-   - Run PenSync from your Start Menu.
-2. **Tablet Installation:**
-   - Connect your Android tablet to your PC using a USB cable.
-   - Ensure **USB Debugging** is enabled in Android Developer Options.
-   - Open PenSync on your PC, and it will automatically detect your tablet.
-   - Install `PenSync.apk` to your tablet (either via the PenSync Windows App dashboard, or by transferring the file manually).
-3. **Connect & Draw!**
-   - PenSync will auto-pair via USB or Wi-Fi. 
-   - Open your favorite drawing application on Windows and start creating!
+## 🚀 How to Install & Connect
+
+### 1. Windows Installation
+- Download and double-click `PenSync_Setup.exe` from this repository.
+- Follow the wizard to install PenSync to your PC.
+- PenSync will automatically start in the background as a seamless service when you sign into Windows.
+
+### 2. Tablet Installation
+- Install `PenSync.apk` on your Android tablet.
+
+### 3. Connecting via USB (Recommended for Zero-Latency)
+1. Connect your Android tablet to your PC using a high-quality USB cable.
+2. Ensure **USB Debugging** is enabled in your tablet's Android Developer Options.
+3. Open the PenSync app on your tablet.
+4. The Windows application will automatically detect the USB connection and route the high-speed telemetry locally. 
+5. You are ready to draw!
+
+### 4. Connecting via Wi-Fi (Wireless Mode)
+1. Ensure both your Windows PC and Android tablet are connected to the **exact same Wi-Fi network**.
+2. Open the PenSync app on your tablet.
+3. The tablet will automatically broadcast its presence to the PenSync Windows background service over UDP.
+4. Once paired, you can disconnect the USB cable and draw completely wirelessly!
 
 ---
 
