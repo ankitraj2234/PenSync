@@ -1,5 +1,7 @@
 # PenSync - Turn your Android Tablet into a Pro Pen Display
 
+![PenSync Poster](PenSync_Poster.jpg)
+
 PenSync allows you to seamlessly use your Android tablet as a high-performance graphics tablet for your Windows PC, completely free and wireless! 
 
 **Developer:** Ankit Raj  
