@@ -1,0 +1,19 @@
+Copyright (c) 2026 Ankit Raj (ar443203@gmail.com)
+All rights reserved.
+
+END USER LICENSE AGREEMENT (EULA)
+
+1. GRANT OF LICENSE
+The author grants you a personal, non-exclusive, non-transferable license to use this software (PenSync) for personal or commercial purposes. 
+
+2. RESTRICTIONS
+You may not:
+- Reverse engineer, decompile, or disassemble the software.
+- Modify, adapt, translate, or create derivative works based upon the software.
+- Distribute, rent, lease, or sub-license the software or its components without explicit written permission from the author.
+- Remove any proprietary notices, labels, or watermarks on the software.
+
+3. DISCLAIMER OF WARRANTY
+This software is provided "as is", without warranty of any kind, express or implied. In no event shall the author be held liable for any damages arising from the use of this software.
+
+For feedback, support, or licensing inquiries, please contact: ar443203@gmail.com
