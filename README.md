@@ -41,3 +41,8 @@ PenSync allows you to seamlessly use your Android tablet as a high-performance g
 ---
 
 *This application is protected against unauthorized tampering. Feedback is always welcome, feel free to contact the developer!*
+
+---
+
+###### Keywords for Search: 
+*Use Android tablet as drawing monitor, Wacom alternative, Huion alternative, free SuperDisplay alternative, Duet Display alternative, spacedesk, driverless pen display, Windows zero-lag drawing tablet, digital art tools, productivity, graphic design setup, stylus tracking, radial menu.*
