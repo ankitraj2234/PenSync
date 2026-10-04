@@ -1,48 +1,49 @@
-# PenSync - Turn your Android Tablet into a Pro Pen Display
+# PenSync: Turn Your Android Tablet into a Pro Windows Drawing Tablet
 
-![PenSync Poster](PenSync_Poster.jpg)
+PenSync is an open-source tool that transforms any Android tablet with an active stylus (like the Moto Pad 60 Pro, Samsung Galaxy Tab S-series, etc.) into a professional digital art graphics tablet for Windows PC. It acts as an input-only drawing surface, similar to a Wacom or Huion pen tablet (without screen mirroring), offering ultra-low latency, tilt support, 8192 levels of pressure sensitivity, and customizable express keys for creative software like Photoshop, Krita, and Blender.
 
-PenSync allows you to seamlessly use your Android tablet as a high-performance graphics tablet for your Windows PC, completely free and wireless! 
+| Part | Path | What it is |
+|---|---|---|
+| Windows app | `windows/src/PenSync.App` | Elevated WPF control panel and host: pairing, USB/Wi-Fi, pen settings, mapping, express keys, driver status, tray icon |
+| Core library | `windows/src/PenSync.Core` | Protocol v2, crypto, host runtime, pen pipeline, HID report encoder (UI-free, fully unit-tested) |
+| Pen driver | `windows/driver/penvhf` | KMDF + VHF virtual HID pen (pressure 8192 levels, X/Y tilt, eraser, barrel) |
+| Android app | `android/tablet` | Pairing, USB/Wi-Fi connection, low-latency stylus capture, express-key panel |
+| Diagnostics | `windows/src/PenSync.HostCli`, `android/diagnostic` | Headless test host; Phase-0 capability probe |
 
-**Developer:** Ankit Raj  
-**Feedback & Support:** ar443203@gmail.com
+## Quick start
 
----
+1. **PC** (administrator PowerShell, from the repo root):
+   ```powershell
+   dotnet publish windows\src\PenSync.App -c Release -o windows\dist\PenSync
+   powershell -ExecutionPolicy Bypass -File windows\setup.ps1 -Launch
+   ```
+   This installs the app and the driver. The first run enables test mode: reboot and run it again. See [docs/driver-install.md](docs/driver-install.md).
+2. **Tablet:** install `android/tablet/app/build/outputs/apk/debug/app-debug.apk` and enable USB debugging.
+3. **Pair:** connect the USB cable, click **Pair new tablet** in PenSync on the PC, then tap **Pair with this PC** on the tablet. Accept only if both screens show the same 6-digit code.
+4. Draw. PenSync reconnects automatically next time; tap **Connect**.
 
-## 🎨 Features
-- **Zero-Lag Telemetry:** Experience sub-millisecond pen tracking with our custom UDP telemetry engine.
-- **Dynamic Pie Menu:** Hover over your favorite Windows app (e.g. Photoshop or Blender) and your tablet instantly loads contextual tools and shortcuts as a draggable radial dial.
-- **True Driverless Mode:** Runs seamlessly in user-space without the need to install buggy virtual drivers.
-- **Pure Trackpad Mode:** Deselect Left/Middle/Right tools on your tablet to enable full multi-finger pinch-to-zoom and panning directly from the tablet glass!
+### USB vs Wi-Fi
 
-## 🚀 How to Install & Connect
+- **USB** (via `adb reverse`) gives the lowest and most stable latency.
+  - USB 2 versus USB 3 makes no difference: a pen produces about 30 KB/s.
+  - Use any good data cable.
+- **Wi-Fi:** enable it on the PC's Connection page. It is restricted to Private networks and the local subnet.
+  - Pen data uses encrypted UDP with redundancy, so a lost packet does not stall a stroke.
+  - Expect a few extra milliseconds and occasional jitter.
 
-### 1. Windows Installation
-- Download and double-click `PenSync_Setup.exe` from this repository.
-- Follow the wizard to install PenSync to your PC.
-- PenSync will automatically start in the background as a seamless service when you sign into Windows.
+### Security
 
-### 2. Tablet Installation
-- Install `PenSync.apk` on your Android tablet.
+- Every connection, USB included, is mutually authenticated (ECDSA P-256) and encrypted (AES-256-GCM).
+- Only paired tablets connect.
+- Pairing requires the PC user to open a 2-minute window and both users to confirm a matching code.
+- Express keys send only a key number; the PC decides what each key does.
 
-### 3. Connecting via USB (Recommended for Zero-Latency)
-1. Connect your Android tablet to your PC using a high-quality USB cable.
-2. Ensure **USB Debugging** is enabled in your tablet's Android Developer Options.
-3. Open the PenSync app on your tablet.
-4. The Windows application will automatically detect the USB connection and route the high-speed telemetry locally. 
-5. You are ready to draw!
+Details: [ADR-003](docs/architecture/adr-003-protocol-v2-secure-transports.md) and [ADR-004](docs/architecture/adr-004-windows-app-privilege-model.md).
 
-### 4. Connecting via Wi-Fi (Wireless Mode)
-1. Ensure both your Windows PC and Android tablet are connected to the **exact same Wi-Fi network**.
-2. Open the PenSync app on your tablet.
-3. The tablet will automatically broadcast its presence to the PenSync Windows background service over UDP.
-4. Once paired, you can disconnect the USB cable and draw completely wirelessly!
+## Documentation
 
----
-
-*This application is protected against unauthorized tampering. Feedback is always welcome, feel free to contact the developer!*
-
----
-
-###### Keywords for Search: 
-*Use Android tablet as drawing monitor, Wacom alternative, Huion alternative, free SuperDisplay alternative, Duet Display alternative, spacedesk, driverless pen display, Windows zero-lag drawing tablet, digital art tools, productivity, graphic design setup, stylus tracking, radial menu.*
+- [docs/HANDOFF.md](docs/HANDOFF.md): build, test, architecture, status and known limits (start here)
+- [docs/protocol-v2.md](docs/protocol-v2.md): normative wire protocol
+- [docs/driver-install.md](docs/driver-install.md): driver signing and installation
+- `docs/architecture/`: ADR-001 to ADR-005
+- `docs/research/`: Phase-0 hardware findings
